@@ -3,8 +3,6 @@ import type { Cart } from '@medusajs/medusa/dist/models/cart'
 import type { Order } from '@medusajs/medusa/dist/models/order'
 import type { PricedShippingOption } from '@medusajs/medusa/dist/types/pricing'
 
-
-
 definePageMeta({
   layout: 'blank'
 });
@@ -30,10 +28,8 @@ const shippingOptions = ref<PricedShippingOption[]>();
 const selectedShippingId = ref();
 const selectedProviderId = ref();
 const paymentData = ref({
-  credit_card: ""
-
+  credit_card: ''
 });
-
 
 const cart = ref<Cart>();
 const order = ref<Order>();
@@ -134,11 +130,6 @@ async function sendPaymentSession() {
 async function completeCheckout() {
   try {
     buttonLoading.value = true;
-    setTimeout(() => {
-        alert('Pedido confirmado! Detalhes enviados para seu e-mail.'); // Mostra um alerta informando que o pedido foi confirmado
-      }, 2000);
-
-    
 
     const id = localStorage.getItem("cart_id")
 
@@ -157,9 +148,7 @@ async function completeCheckout() {
   } finally {
     buttonLoading.value = false;
   }
-
 }
-
 </script>
 
 <template>
@@ -285,14 +274,10 @@ async function completeCheckout() {
                 <Input id="city" type="city" v-model="paymentData.credit_card"/>
               </div>
             </div>
-            <Button class="!mt-8" @click="completeCheckout">
+            <Button v-if="paymentData.credit_card.length > 0" class="!mt-8" @click="completeCheckout">
               {{ buttonLoading ? 'Carregando...' : 'Continuar' }}
-
             </Button>
-
-            
           </div>
-        
         </div>
         <div>
           <h2 class="text-xl font-medium mb-4">
